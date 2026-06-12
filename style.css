@@ -1,0 +1,623 @@
+/* =========================================
+   MORARY — CSS Customizado (versão Bootstrap)
+   ─────────────────────────────────────────
+   IMPORTANTE: Este arquivo é carregado DEPOIS do Bootstrap.
+   Aqui ficam SOMENTE os estilos que o Bootstrap não cobre:
+   • Design tokens (variáveis CSS do projeto)
+   • Identidade visual (cores, tipografia, animações)
+   • Componentes específicos do Morary
+   • Overrides pontuais do Bootstrap quando necessário
+
+   O que FOI REMOVIDO em relação ao CSS original:
+   • Regras de layout (display, flex, grid, gap, padding, margin)
+     → substituídas por utility classes do Bootstrap no HTML
+   • Media queries para responsividade de colunas
+     → o sistema de grid do Bootstrap cuida disso com col-md-*, col-sm-*, etc.
+   ========================================= */
+
+
+/* =========================================
+   1. RESET MÍNIMO
+   (Bootstrap já faz um reset completo — Reboot)
+   ========================================= */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+
+/* =========================================
+   2. VARIÁVEIS CSS (Design Tokens)
+   Mantidas 100% do original — são a identidade
+   visual do projeto e independem do Bootstrap.
+   ========================================= */
+:root {
+  --background:          hsl(40, 33%, 98%);
+  --foreground:          hsl(150, 10%, 20%);
+  --card:                hsl(40, 30%, 96%);
+  --card-foreground:     hsl(150, 10%, 20%);
+  --primary:             hsl(145, 30%, 42%);
+  --primary-foreground:  hsl(40, 33%, 98%);
+  --secondary:           hsl(30, 30%, 92%);
+  --secondary-foreground:hsl(150, 10%, 25%);
+  --muted:               hsl(40, 20%, 94%);
+  --muted-foreground:    hsl(150, 5%, 50%);
+  --accent:              hsl(20, 40%, 88%);
+  --accent-foreground:   hsl(150, 10%, 20%);
+  --border:              hsl(40, 20%, 90%);
+  --sage:                hsl(145, 20%, 72%);
+  --sage-deep:           hsl(145, 25%, 35%);
+  --peach:               hsl(20, 60%, 85%);
+  --peach-deep:          hsl(15, 45%, 70%);
+  --cream:               hsl(40, 40%, 95%);
+  --warm-gray:           hsl(30, 10%, 60%);
+
+  --font-display: 'Playfair Display', serif;
+  --font-body:    'DM Sans', sans-serif;
+  --radius:       0.75rem;
+}
+
+
+/* =========================================
+   3. ESTILOS BASE / TIPOGRAFIA
+   Bootstrap define font-family no <body>;
+   sobrescrevemos para usar as fontes do projeto.
+   ========================================= */
+body {
+  font-family: var(--font-body);
+  background-color: var(--background);
+  color: var(--foreground);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  line-height: 1.2;
+}
+
+/*
+  Bootstrap define border-color globalmente.
+  Sobrescrevemos para usar a cor de borda do projeto.
+*/
+.border {
+  border-color: var(--border) !important;
+}
+
+
+/* =========================================
+   4. UTILITÁRIOS CUSTOMIZADOS
+   Utilitários que o Bootstrap não tem
+   e que são usados em múltiplos lugares.
+   ========================================= */
+
+/*
+  py-section: padding vertical padrão das sections.
+  Bootstrap tem py-5 (3rem), mas o projeto usa 6–8rem.
+  Criamos uma classe customizada para manter o ritmo vertical.
+*/
+.py-section {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+@media (min-width: 768px) {
+  .py-section {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}
+
+/* Cor de fundo alternada para sections */
+.bg-card {
+  background-color: var(--card);
+}
+
+/* Labels de seção (eyebrows) */
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--primary);
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.section-label--center {
+  text-align: center;
+}
+
+/* Títulos de seção */
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.875rem, 5vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+
+/* =========================================
+   5. ANIMAÇÕES
+   Mantidas integralmente — Bootstrap não tem
+   sistema de animação equivalente.
+   ========================================= */
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50%       { transform: scale(1.08); opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseSoft {
+  0%, 100% { box-shadow: 0 0 0 0 hsla(145, 30%, 42%, 0.2); }
+  50%       { box-shadow: 0 0 0 20px hsla(145, 30%, 42%, 0); }
+}
+
+.animate-breathe    { animation: breathe 4s ease-in-out infinite; }
+.animate-float      { animation: float 6s ease-in-out infinite; }
+.animate-fade-up    { animation: fadeUp 0.8s ease-out both; }
+.animate-pulse-soft { animation: pulseSoft 3s ease-in-out infinite; }
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+
+/* =========================================
+   6. HERO SECTION
+   ========================================= */
+.hero {
+  min-height: 100vh;
+  /* Bootstrap d-flex/align-items-center/justify-content-center
+     cuidam do layout — aqui ficam só os estilos visuais */
+}
+
+.hero__background {
+  object-fit: cover;
+  opacity: 0.4;
+}
+
+.hero__overlay {
+  background: linear-gradient(
+    to bottom,
+    hsla(40, 33%, 98%, 0.3),
+    hsla(40, 33%, 98%, 0.6) 50%,
+    var(--background)
+  );
+}
+
+.hero__companion {
+  width: 8rem;
+  height: 8rem;
+}
+
+.hero__title {
+  font-size: clamp(3rem, 8vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin-bottom: 1.5rem;
+}
+
+.hero__subtitle {
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  color: var(--muted-foreground);
+  max-width: 42rem;
+  margin-bottom: 1rem;
+}
+
+.hero__description {
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  color: var(--muted-foreground);
+  opacity: 0.8;
+  max-width: 36rem;
+  margin-bottom: 2.5rem;
+}
+
+/*
+  hero__button: usamos a classe .btn do Bootstrap como base
+  (reset de border, cursor, display inline-flex, etc.)
+  e sobrescrevemos as cores para seguir o design do Morary.
+*/
+.hero__button {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  font-weight: 500;
+  font-size: 1.125rem;
+  padding: 1rem 2rem;
+  /* rounded-pill aplicado via Bootstrap no HTML */
+  transition: opacity 0.2s ease;
+}
+
+.hero__button:hover {
+  opacity: 0.9;
+  color: var(--primary-foreground);
+}
+
+
+/* =========================================
+   7. PROBLEM SECTION
+   ========================================= */
+.problem__description {
+  color: var(--muted-foreground);
+  font-size: 1.125rem;
+  max-width: 42rem;
+}
+
+/*
+  problem__card: Bootstrap fornece p-4 rounded-4 border via HTML.
+  Aqui ficam somente cor de fundo, opacidade e estilos visuais.
+*/
+.problem__card {
+  background-color: var(--background);
+  opacity: 0.5;
+}
+
+.problem__icon-wrapper {
+  width: 3.5rem;
+  height: 3.5rem;
+  background-color: hsla(20, 60%, 85%, 0.5);
+  /* rounded-circle via Bootstrap no HTML */
+}
+
+.problem__icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--peach-deep);
+}
+
+.problem__card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.problem__card-text {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+
+
+/* =========================================
+   8. SOLUTION SECTION
+   ========================================= */
+.solution__text {
+  font-size: clamp(1.125rem, 2vw, 1.25rem);
+  color: var(--muted-foreground);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.solution__note {
+  font-size: 1rem;
+  color: var(--muted-foreground);
+  opacity: 0.7;
+  line-height: 1.7;
+}
+
+
+/* =========================================
+   9. HOW IT WORKS SECTION
+   ========================================= */
+.how-it-works__icon-wrapper {
+  width: 4rem;
+  height: 4rem;
+  background-color: hsla(145, 20%, 72%, 0.3);
+  /* rounded-3 via Bootstrap no HTML */
+}
+
+.how-it-works__icon {
+  width: 1.75rem;
+  height: 1.75rem;
+  color: var(--sage-deep);
+}
+
+.how-it-works__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.how-it-works__text {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+
+
+/* =========================================
+   10. FEATURES SECTION
+   ========================================= */
+/*
+  features__card: Bootstrap fornece d-flex gap-3 p-4 rounded-4 border h-100.
+  Aqui: cor de fundo, opacidade e hover.
+*/
+.features__card {
+  background-color: var(--card);
+  opacity: 0.8;
+  transition: box-shadow 0.3s ease;
+}
+
+.features__card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+}
+
+.features__icon-wrapper {
+  width: 3rem;
+  height: 3rem;
+  /* rounded-3 + flex-shrink-0 + d-flex via Bootstrap no HTML */
+}
+
+.features__icon-wrapper--sage    { background-color: hsla(145, 20%, 72%, 0.3); }
+.features__icon-wrapper--peach   { background-color: hsla(20, 60%, 85%, 0.4); }
+.features__icon-wrapper--primary { background-color: hsla(145, 30%, 42%, 0.1); }
+.features__icon-wrapper--accent  { background-color: var(--accent); }
+
+.features__icon { width: 1.25rem; height: 1.25rem; }
+.features__icon--sage    { color: var(--sage-deep); }
+.features__icon--peach   { color: var(--peach-deep); }
+.features__icon--primary { color: var(--primary); }
+.features__icon--accent  { color: var(--accent-foreground); opacity: 0.7; }
+
+.features__card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.features__card-text {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+
+
+/* =========================================
+   11. MOOD TRACKING SECTION
+   ========================================= */
+.mood-tracking__text {
+  color: var(--muted-foreground);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.mood-tracking__feature-icon-wrapper {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: hsla(20, 60%, 85%, 0.4);
+  /* rounded-2 + flex-shrink-0 + d-flex via Bootstrap */
+}
+
+.mood-tracking__feature-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--peach-deep);
+}
+
+.mood-tracking__feature-text { font-size: 0.875rem; }
+
+/* Demo card: Bootstrap fornece p-4 rounded-4 border */
+.mood-tracking__demo {
+  background-color: var(--card);
+  opacity: 0.8;
+}
+
+.mood-tracking__demo-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--muted-foreground);
+  margin-bottom: 1.5rem;
+}
+
+.mood-tracking__emoji-button {
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  transition: all 0.2s ease;
+  /* rounded-circle via Bootstrap */
+}
+
+.mood-tracking__emoji-button:hover {
+  background-color: var(--muted);
+}
+
+.mood-tracking__emoji-button--active {
+  background-color: hsla(145, 20%, 72%, 0.3);
+  transform: scale(1.1);
+  box-shadow: 0 0 0 2px hsla(145, 25%, 35%, 0.3);
+}
+
+.mood-tracking__chart-day {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  width: 2rem;
+}
+
+/* Bootstrap flex-grow-1 rounded-pill overflow-hidden aplicados no HTML */
+.mood-tracking__chart-bar-wrapper {
+  height: 0.625rem;
+  background-color: var(--muted);
+}
+
+.mood-tracking__chart-bar {
+  height: 100%;
+  background: linear-gradient(to right, var(--sage), var(--primary));
+  transition: width 0.3s ease;
+}
+
+
+/* =========================================
+   12. COMPANION SECTION
+   ========================================= */
+.companion__image-glow {
+  background-color: hsla(145, 20%, 72%, 0.2);
+  filter: blur(48px);
+  transform: scale(1.5);
+}
+
+.companion__image {
+  width: 14rem;
+  height: 14rem;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .companion__image { width: 18rem; height: 18rem; }
+}
+
+.companion__text {
+  color: var(--muted-foreground);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+/* Bootstrap p-3 rounded-3 border aplicados no HTML */
+.companion__state {
+  background-color: var(--background);
+  opacity: 0.8;
+}
+
+.companion__state-emoji {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.companion__state-title {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.companion__state-desc {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  line-height: 1.5;
+}
+
+
+/* =========================================
+   13. AUDIENCE SECTION
+   ========================================= */
+/* Bootstrap d-flex align-items-center gap-2 px-4 py-3 rounded-pill border no HTML */
+.audience__tag {
+  background-color: var(--background);
+  opacity: 0.8;
+  transition: box-shadow 0.2s ease;
+}
+
+.audience__tag:hover {
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+}
+
+.audience__tag-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--primary);
+}
+
+.audience__tag-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+
+/* =========================================
+   14. DIFFERENTIALS SECTION
+   ========================================= */
+/* Bootstrap p-4 rounded-4 border h-100 no HTML */
+.differentials__card { opacity: 0.8; }
+.differentials__card--sage  { background-color: hsla(145, 20%, 72%, 0.1); }
+.differentials__card--peach { background-color: hsla(20, 60%, 85%, 0.2); }
+
+.differentials__card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.differentials__card-text {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+
+
+/* =========================================
+   15. FUTURE SECTION
+   ========================================= */
+.future__description {
+  color: var(--muted-foreground);
+  line-height: 1.7;
+  max-width: 40rem;
+}
+
+/* Bootstrap d-flex align-items-center gap-3 p-3 rounded-3 border no HTML */
+.future__item {
+  background-color: var(--background);
+  opacity: 0.8;
+}
+
+.future__item-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--sage-deep);
+}
+
+.future__item-text {
+  font-size: 0.875rem;
+}
+
+
+/* =========================================
+   16. FOOTER SECTION
+   ========================================= */
+.footer__gradient {
+  background: linear-gradient(to top, hsla(145, 20%, 72%, 0.1), transparent);
+}
+
+.footer__title {
+  font-size: clamp(1.875rem, 5vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.footer__text {
+  font-size: 1.125rem;
+  color: var(--muted-foreground);
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+
+.footer__emoji {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.footer__credits {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  opacity: 0.6;
+}
